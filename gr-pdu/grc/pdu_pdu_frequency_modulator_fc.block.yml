@@ -1,0 +1,32 @@
+id: pdu_pdu_frequency_modulator_fc
+label: PDU Frequency Modulator
+category: '[Core]/PDU'
+
+parameters:
+-   id: sensitivity
+    label: Sensitivity
+    dtype: float
+-   id: taps
+    label: FIR Taps
+    dtype: float_vector
+    default: '1'
+
+inputs:
+-   domain: message
+    id: pdus
+
+outputs:
+-   domain: message
+    id: pdus
+    optional: true
+asserts:
+- ${ sensitivity > 0 }
+
+templates:
+    imports: from gnuradio import pdu
+    make: pdu.pdu_pdu_frequency_modulator_fc(${sensitivity}, ${taps})
+    callbacks:
+    - set_sensitivity(${sensitivity})
+    - set_taps(${taps})
+
+file_format: 1
