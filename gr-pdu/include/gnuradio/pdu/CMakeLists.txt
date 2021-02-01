@@ -10,9 +10,17 @@
 ########################################################################
 install(FILES
     api.h
-    pdu_frequency_modulator_fc.h
-    pdu_split.h
     pdu.h
+    pdu_filter.h
+    pdu_frequency_modulator_fc.h
+    pdu_remove.h
+    pdu_set.h
+    pdu_split.h
+    pdu_to_tagged_stream.h
+    random_pdu.h
+    socket_pdu.h
+    tagged_stream_to_pdu.h
+    tuntap_pdu.h
     DESTINATION ${GR_INCLUDE_DIR}/gnuradio/pdu
 )
 

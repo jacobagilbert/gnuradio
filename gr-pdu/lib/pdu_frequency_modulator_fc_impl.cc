@@ -28,9 +28,6 @@ pdu_frequency_modulator_fc::make(float sensitivity, const std::vector<float> tap
     return gnuradio::make_block_sptr<pdu_frequency_modulator_fc_impl>(sensitivity, taps);
 }
 
-/*
- * The private constructor
- */
 pdu_frequency_modulator_fc_impl::pdu_frequency_modulator_fc_impl(
     float sensitivity, const std::vector<float> taps)
     : gr::block("pdu_frequency_modulator_fc",
@@ -55,9 +52,6 @@ pdu_frequency_modulator_fc_impl::pdu_frequency_modulator_fc_impl(
     message_port_register_out(PMTCONSTSTR__pdus());
 }
 
-/*
- * Our virtual destructor.
- */
 pdu_frequency_modulator_fc_impl::~pdu_frequency_modulator_fc_impl() {}
 
 void pdu_frequency_modulator_fc_impl::handle_pdu(pmt::pmt_t pdu)

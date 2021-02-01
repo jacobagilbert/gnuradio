@@ -26,35 +26,25 @@ private:
     filter::kernel::fir_filter_fff* d_fir;
     std::vector<float> d_log_ramp;
 
-public:
-    /**
-     * constructor
+    /*!
+     * \brief PDU formatted messages received in this port are frequency modulated.
      *
-     * @param sensitivity -
-     * @param taps -
+     * This port receives messages from the scheduler's message handling mechanism and
+     * frequency modulates the vector data. A pulse shaping filter with parameterized taps
+     * can also be applied by this block. The resulting FC32 PDU is emitted out of this
+     * block. The input port is safe for all PMT objects but anything other than F32 PDUs
+     * are dropped.
+     *
+     * \param pdu A F32 PDU message passed from the scheduler's message handling.
      */
-    pdu_frequency_modulator_fc_impl(float sensitivity, const std::vector<float> taps);
-
-    /**
-     * Deconstructor
-     */
-    ~pdu_frequency_modulator_fc_impl();
-
     void handle_pdu(pmt::pmt_t pdu);
 
-    /**
-     * Sets sensitivity
-     *
-     * @param sensitivity -
-     */
-    void set_sensitivity(float sensitivity);
+public:
+    pdu_frequency_modulator_fc_impl(float sensitivity, const std::vector<float> taps);
+    ~pdu_frequency_modulator_fc_impl() override;
 
-    /**
-     * Sets taps array
-     *
-     * @param taps -
-     */
-    void set_taps(std::vector<float> taps);
+    void set_sensitivity(float sensitivity) override;
+    void set_taps(std::vector<float> taps) override;
 };
 
 } // namespace pdu

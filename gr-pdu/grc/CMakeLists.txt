@@ -5,8 +5,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
 
-install(FILES
-    pdu_pdu_split.block.yml
-    pdu_pdu_frequency_modulator_fc.block.yml
-    DESTINATION ${GRC_BLOCKS_DIR}
-)
+########################################################################
+file(GLOB yml_files "*.yml")
+
+install(FILES ${yml_files} DESTINATION ${GRC_BLOCKS_DIR})

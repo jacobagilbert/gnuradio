@@ -1,0 +1,43 @@
+id: pdu_tuntap_pdu
+label: TUNTAP PDU
+flags: [ python, cpp ]
+
+parameters:
+-   id: ifn
+    label: Interface Name
+    dtype: string
+    default: tap0
+-   id: mtu
+    label: MTU
+    dtype: int
+    default: '10000'
+-   id: istunflag
+    label: Flag
+    dtype: enum
+    default: 'False'
+    options: ['True', 'False']
+    option_labels: [TUN(IP Packet), TAP(Ethernet Frame)]
+
+inputs:
+-   domain: message
+    id: pdus
+    optional: true
+
+outputs:
+-   domain: message
+    id: pdus
+    optional: true
+
+templates:
+    imports: from gnuradio import pdu
+    make: pdu.tuntap_pdu(${ifn}, ${mtu}, ${istunflag})
+
+cpp_templates:
+    includes: ['#include <gnuradio/pdu/tuntap_pdu.h>']
+    declarations: 'pdu::tuntap_pdu::sptr ${id};'
+    make: 'this->${id} = pdu::tuntap_pdu::make(${ifn}, ${mtu}, ${istunflag});'
+    translations:
+        'True': 'true'
+        'False': 'false'
+
+file_format: 1
