@@ -9,18 +9,10 @@
 #
 
 
-from gnuradio import gr, gr_unittest
-from gnuradio import blocks
+from gnuradio import gr, gr_unittest, blocks, pdu
 import pmt
 import time
-try:
-    from gnuradio import pdu
-except ImportError:
-    import os
-    import sys
-    dirname, filename = os.path.split(os.path.abspath(__file__))
-    sys.path.append(os.path.join(dirname, "bindings"))
-    from gnuradio import pdu
+
 
 class qa_pdu_split (gr_unittest.TestCase):
 
