@@ -1,6 +1,7 @@
 options:
   parameters:
     author: ''
+    catch_exceptions: 'True'
     category: Custom
     cmake_opt: ''
     comment: ''
@@ -22,8 +23,10 @@ options:
     sizing_mode: fixed
     thread_safe_setters: ''
     title: ''
-    window_size: 1280, 1024
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [16, 12.0]
     rotation: 0
     state: enabled
@@ -42,7 +45,10 @@ blocks:
     type: byte
     vlen: '1'
   states:
-    coordinate: [504, 188.0]
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [592, 192.0]
     rotation: 0
     state: enabled
 - name: blocks_message_debug_0
@@ -51,8 +57,12 @@ blocks:
     affinity: ''
     alias: ''
     comment: ''
+    en_uvec: 'True'
   states:
-    coordinate: [952, 128.0]
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1160, 128.0]
     rotation: 0
     state: enabled
 - name: blocks_message_strobe_0
@@ -66,6 +76,9 @@ blocks:
     msg: pmt.intern("TEST")
     period: '1000'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [64, 116.0]
     rotation: 0
     state: enabled
@@ -80,11 +93,14 @@ blocks:
     msg: pmt.cons( pmt.PMT_NIL, pmt.make_u8vector(512,0) )
     period: '750'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [56, 180.0]
     rotation: 0
     state: enabled
-- name: blocks_pdu_to_tagged_stream_0
-  id: blocks_pdu_to_tagged_stream
+- name: pdu_pdu_to_tagged_stream_1
+  id: pdu_pdu_to_tagged_stream
   parameters:
     affinity: ''
     alias: ''
@@ -94,11 +110,14 @@ blocks:
     tag: packet_len
     type: byte
   states:
-    coordinate: [272, 188.0]
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [336, 188.0]
     rotation: 0
-    state: enabled
-- name: blocks_tagged_stream_to_pdu_0
-  id: blocks_tagged_stream_to_pdu
+    state: true
+- name: pdu_tagged_stream_to_pdu_0
+  id: pdu_tagged_stream_to_pdu
   parameters:
     affinity: ''
     alias: ''
@@ -108,16 +127,19 @@ blocks:
     tag: packet_len
     type: byte
   states:
-    coordinate: [672, 188.0]
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [824, 188.0]
     rotation: 0
-    state: enabled
+    state: true
 
 connections:
-- [blocks_copy_0, '0', blocks_tagged_stream_to_pdu_0, '0']
+- [blocks_copy_0, '0', pdu_tagged_stream_to_pdu_0, '0']
 - [blocks_message_strobe_0, strobe, blocks_message_debug_0, print]
-- [blocks_message_strobe_0_0, strobe, blocks_pdu_to_tagged_stream_0, pdus]
-- [blocks_pdu_to_tagged_stream_0, '0', blocks_copy_0, '0']
-- [blocks_tagged_stream_to_pdu_0, pdus, blocks_message_debug_0, print_pdu]
+- [blocks_message_strobe_0_0, strobe, pdu_pdu_to_tagged_stream_1, pdus]
+- [pdu_pdu_to_tagged_stream_1, '0', blocks_copy_0, '0']
+- [pdu_tagged_stream_to_pdu_0, pdus, blocks_message_debug_0, print_pdu]
 
 metadata:
   file_format: 1
