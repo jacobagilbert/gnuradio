@@ -8,7 +8,7 @@ parameters:
     dtype: enum
     options: [byte, complex, float]
     option_attributes:
-        tv: [pdu.byte_t, pdu.complex_t, pdu.float_t]
+        tv: [pdu.types.byte_t, pdu.types.complex_t, pdu.types.float_t]
     hide: part
 -   id: tag
     label: Length tag name

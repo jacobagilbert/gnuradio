@@ -14,7 +14,7 @@
 /* BINDTOOL_GEN_AUTOMATIC(0)                                                       */
 /* BINDTOOL_USE_PYGCCXML(0)                                                        */
 /* BINDTOOL_HEADER_FILE(pdu.h)                                                     */
-/* BINDTOOL_HEADER_FILE_HASH(15f56dfddfda75e396a0b32cca7b7b3d)                     */
+/* BINDTOOL_HEADER_FILE_HASH(fb2bb8bef0d70e1b197768e50da651d5)                     */
 /***********************************************************************************/
 
 #include <pybind11/complex.h>
@@ -31,28 +31,16 @@ void bind_pdu(py::module& m)
 {
 
 
-    py::enum_<::gr::pdu::vector_type>(m, "vector_type")
-        .value("byte_t", ::gr::pdu::byte_t)       // 0
-        .value("float_t", ::gr::pdu::float_t)     // 1
-        .value("complex_t", ::gr::pdu::complex_t) // 2
+    py::module m_types = m.def_submodule("types");
+
+
+    py::enum_<::gr::pdu::types::vector_type>(m_types, "vector_type")
+        .value("byte_t", ::gr::pdu::types::byte_t)       // 0
+        .value("float_t", ::gr::pdu::types::float_t)     // 1
+        .value("complex_t", ::gr::pdu::types::complex_t) // 2
         .export_values();
 
-    py::implicitly_convertible<int, ::gr::pdu::vector_type>();
-
-
-    m.def("PMTCONSTSTR__data", &::gr::pdu::PMTCONSTSTR__data, D(PMTCONSTSTR__data));
-
-
-    m.def("PMTCONSTSTR__dict", &::gr::pdu::PMTCONSTSTR__dict, D(PMTCONSTSTR__dict));
-
-
-    m.def("PMTCONSTSTR__emit", &::gr::pdu::PMTCONSTSTR__emit, D(PMTCONSTSTR__emit));
-
-
-    m.def("PMTCONSTSTR__msg", &::gr::pdu::PMTCONSTSTR__msg, D(PMTCONSTSTR__msg));
-
-
-    m.def("PMTCONSTSTR__pdus", &::gr::pdu::PMTCONSTSTR__pdus, D(PMTCONSTSTR__pdus));
+    py::implicitly_convertible<int, ::gr::pdu::types::vector_type>();
 
 
     m.def("itemsize", &::gr::pdu::itemsize, py::arg("type"), D(itemsize));
@@ -75,4 +63,22 @@ void bind_pdu(py::module& m)
 
     m.def(
         "type_from_pmt", &::gr::pdu::type_from_pmt, py::arg("vector"), D(type_from_pmt));
+
+
+    py::module m_ports = m.def_submodule("ports");
+
+
+    m_ports.def("data", &::gr::pdu::ports::data, D(ports, data));
+
+
+    m_ports.def("dict", &::gr::pdu::ports::dict, D(ports, dict));
+
+
+    m_ports.def("emit", &::gr::pdu::ports::emit, D(ports, emit));
+
+
+    m_ports.def("msg", &::gr::pdu::ports::msg, D(ports, msg));
+
+
+    m_ports.def("pdus", &::gr::pdu::ports::pdus, D(ports, pdus));
 }

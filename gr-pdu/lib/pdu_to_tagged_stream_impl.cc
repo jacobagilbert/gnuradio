@@ -19,13 +19,13 @@
 namespace gr {
 namespace pdu {
 
-pdu_to_tagged_stream::sptr pdu_to_tagged_stream::make(pdu::vector_type type,
+pdu_to_tagged_stream::sptr pdu_to_tagged_stream::make(pdu::types::vector_type type,
                                                       const std::string& tsb_tag_key)
 {
     return gnuradio::make_block_sptr<pdu_to_tagged_stream_impl>(type, tsb_tag_key);
 }
 
-pdu_to_tagged_stream_impl::pdu_to_tagged_stream_impl(pdu::vector_type type,
+pdu_to_tagged_stream_impl::pdu_to_tagged_stream_impl(pdu::types::vector_type type,
                                                      const std::string& tsb_tag_key)
     : tagged_stream_block("pdu_to_tagged_stream",
                           io_signature::make(0, 0, 0),
@@ -34,13 +34,13 @@ pdu_to_tagged_stream_impl::pdu_to_tagged_stream_impl(pdu::vector_type type,
       d_itemsize(pdu::itemsize(type)),
       d_curr_len(0)
 {
-    message_port_register_in(PMTCONSTSTR__pdus());
+    message_port_register_in(ports::pdus());
 }
 
 int pdu_to_tagged_stream_impl::calculate_output_stream_length(const gr_vector_int&)
 {
     if (d_curr_len == 0) {
-        pmt::pmt_t msg(delete_head_nowait(PMTCONSTSTR__pdus()));
+        pmt::pmt_t msg(delete_head_nowait(ports::pdus()));
         if (msg.get() == NULL) {
             return 0;
         }

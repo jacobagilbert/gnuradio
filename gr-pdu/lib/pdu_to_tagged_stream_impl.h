@@ -24,7 +24,7 @@ class PDU_API pdu_to_tagged_stream_impl : public pdu_to_tagged_stream
     size_t d_curr_len;
 
 public:
-    pdu_to_tagged_stream_impl(pdu::vector_type type,
+    pdu_to_tagged_stream_impl(pdu::types::vector_type type,
                               const std::string& lengthtagname = "packet_len");
 
     int calculate_output_stream_length(const gr_vector_int& ninput_items) override;

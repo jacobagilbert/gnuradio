@@ -10,10 +10,13 @@ Older Logs can be found in `docs/RELEASE-NOTES-*`.
 ## [3.10.0.0] - Unreleased
 
 ### Changed
+
 - Moved PDU blocks from gr-blocks to gr-pdu
    - Compatibility shim included to allow access to these blocks from gr-blocks
      but these are deprecated from the gr-blocks namespace and the shim is
      scheduled for removal in 3.11.
+- gr::blocks::pdu namespace has been reorganized in gr::pdu
+   - PDU types are accessible in gr::pdu::types
 
 #### Project Scope
 
@@ -22,6 +25,7 @@ Older Logs can be found in `docs/RELEASE-NOTES-*`.
 - Windows build: removed unnecessary MSVC-specific system include overrides
 
 ### Added
+
 - New in-tree module gr-pdu
 
 #### Misc.

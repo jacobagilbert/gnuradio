@@ -24,7 +24,7 @@ class test_fecapi_cc_buffer_overflow(gr_unittest.TestCase):
         head = blocks.head(gr.sizeof_float, self.n_frames * frame_len)
         tag = blocks.stream_to_tagged_stream(
             gr.sizeof_float, 1, frame_len, "packet_len")
-        stream2pdu = pdu.tagged_stream_to_pdu(pdu.float_t, 'packet_len')
+        stream2pdu = pdu.tagged_stream_to_pdu(pdu.types.float_t, 'packet_len')
 
         viterbi = fec.cc_decoder.make(
             frame_len // 2, 7, 2, [79, -109], 0, -1, fec.CC_TERMINATED, False)

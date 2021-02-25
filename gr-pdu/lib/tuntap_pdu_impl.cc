@@ -83,12 +83,12 @@ tuntap_pdu_impl::tuntap_pdu_impl(std::string dev, int MTU, bool istunflag)
               << std::endl;
 
     // set up output message port
-    message_port_register_out(PMTCONSTSTR__pdus());
-    start_rxthread(this, PMTCONSTSTR__pdus());
+    message_port_register_out(ports::pdus());
+    start_rxthread(this, ports::pdus());
 
     // set up input message port
-    message_port_register_in(PMTCONSTSTR__pdus());
-    set_msg_handler(PMTCONSTSTR__pdus(), [this](pmt::pmt_t msg) { this->send(msg); });
+    message_port_register_in(ports::pdus());
+    set_msg_handler(ports::pdus(), [this](pmt::pmt_t msg) { this->send(msg); });
 }
 
 int tuntap_pdu_impl::tun_alloc(char* dev, int flags)

@@ -18,21 +18,27 @@
 
 namespace gr {
 namespace pdu {
-enum vector_type { byte_t, float_t, complex_t };
 
+// PDU uniform vector types
+namespace types {
+enum vector_type { byte_t, float_t, complex_t };
+} // namespace types
 
 // static const PMT interned string getters
-PDU_API const pmt::pmt_t PMTCONSTSTR__data();
-PDU_API const pmt::pmt_t PMTCONSTSTR__dict();
-PDU_API const pmt::pmt_t PMTCONSTSTR__emit();
-PDU_API const pmt::pmt_t PMTCONSTSTR__msg();
-PDU_API const pmt::pmt_t PMTCONSTSTR__pdus();
+namespace ports {
+PDU_API const pmt::pmt_t data();
+PDU_API const pmt::pmt_t dict();
+PDU_API const pmt::pmt_t emit();
+PDU_API const pmt::pmt_t msg();
+PDU_API const pmt::pmt_t pdus();
+} // namespace ports
 
 // pdu functions
-PDU_API size_t itemsize(vector_type type);
-PDU_API bool type_matches(vector_type type, pmt::pmt_t v);
-PDU_API pmt::pmt_t make_pdu_vector(vector_type type, const uint8_t* buf, size_t items);
-PDU_API vector_type type_from_pmt(pmt::pmt_t vector);
+PDU_API size_t itemsize(types::vector_type type);
+PDU_API bool type_matches(types::vector_type type, pmt::pmt_t v);
+PDU_API pmt::pmt_t
+make_pdu_vector(types::vector_type type, const uint8_t* buf, size_t items);
+PDU_API types::vector_type type_from_pmt(pmt::pmt_t vector);
 
 
 } // namespace pdu

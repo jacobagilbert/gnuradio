@@ -30,10 +30,9 @@ pdu_filter_impl::pdu_filter_impl(pmt::pmt_t k, pmt::pmt_t v, bool invert)
       d_v(v),
       d_invert(invert)
 {
-    message_port_register_out(PMTCONSTSTR__pdus());
-    message_port_register_in(PMTCONSTSTR__pdus());
-    set_msg_handler(PMTCONSTSTR__pdus(),
-                    [this](pmt::pmt_t msg) { this->handle_msg(msg); });
+    message_port_register_out(ports::pdus());
+    message_port_register_in(ports::pdus());
+    set_msg_handler(ports::pdus(), [this](pmt::pmt_t msg) { this->handle_msg(msg); });
 }
 
 void pdu_filter_impl::handle_msg(pmt::pmt_t pdu)
@@ -51,7 +50,7 @@ void pdu_filter_impl::handle_msg(pmt::pmt_t pdu)
 
     // if all tests pass, propagate the pdu
     if (output) {
-        message_port_pub(PMTCONSTSTR__pdus(), pdu);
+        message_port_pub(ports::pdus(), pdu);
     }
 }
 

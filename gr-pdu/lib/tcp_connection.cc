@@ -83,7 +83,7 @@ void tcp_connection::handle_read(const boost::system::error_code& error,
                 pmt::init_u8vector(bytes_transferred, (const uint8_t*)&d_buf[0]);
             pmt::pmt_t pdu = pmt::cons(pmt::PMT_NIL, vector);
 
-            d_block->message_port_pub(PMTCONSTSTR__pdus(), pdu);
+            d_block->message_port_pub(ports::pdus(), pdu);
         }
 
         d_socket.async_read_some(

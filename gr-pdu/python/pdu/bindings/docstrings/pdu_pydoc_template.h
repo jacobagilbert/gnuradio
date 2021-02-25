@@ -15,19 +15,19 @@
  */
 
 
-static const char* __doc_gr_pdu_PMTCONSTSTR__data = R"doc()doc";
+static const char* __doc_gr_pdu_ports_data = R"doc()doc";
 
 
-static const char* __doc_gr_pdu_PMTCONSTSTR__dict = R"doc()doc";
+static const char* __doc_gr_pdu_ports_dict = R"doc()doc";
 
 
-static const char* __doc_gr_pdu_PMTCONSTSTR__emit = R"doc()doc";
+static const char* __doc_gr_pdu_ports_emit = R"doc()doc";
 
 
-static const char* __doc_gr_pdu_PMTCONSTSTR__msg = R"doc()doc";
+static const char* __doc_gr_pdu_ports_msg = R"doc()doc";
 
 
-static const char* __doc_gr_pdu_PMTCONSTSTR__pdus = R"doc()doc";
+static const char* __doc_gr_pdu_ports_pdus = R"doc()doc";
 
 
 static const char* __doc_gr_pdu_itemsize = R"doc()doc";

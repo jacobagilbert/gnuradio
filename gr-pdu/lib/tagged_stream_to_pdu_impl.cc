@@ -19,13 +19,13 @@
 namespace gr {
 namespace pdu {
 
-tagged_stream_to_pdu::sptr tagged_stream_to_pdu::make(pdu::vector_type type,
+tagged_stream_to_pdu::sptr tagged_stream_to_pdu::make(pdu::types::vector_type type,
                                                       const std::string& lengthtagname)
 {
     return gnuradio::make_block_sptr<tagged_stream_to_pdu_impl>(type, lengthtagname);
 }
 
-tagged_stream_to_pdu_impl::tagged_stream_to_pdu_impl(pdu::vector_type type,
+tagged_stream_to_pdu_impl::tagged_stream_to_pdu_impl(pdu::types::vector_type type,
                                                      const std::string& lengthtagname)
     : tagged_stream_block("tagged_stream_to_pdu",
                           io_signature::make(1, 1, pdu::itemsize(type)),
@@ -35,7 +35,7 @@ tagged_stream_to_pdu_impl::tagged_stream_to_pdu_impl(pdu::vector_type type,
       d_pdu_meta(pmt::PMT_NIL),
       d_pdu_vector(pmt::PMT_NIL)
 {
-    message_port_register_out(PMTCONSTSTR__pdus());
+    message_port_register_out(ports::pdus());
 }
 
 int tagged_stream_to_pdu_impl::work(int noutput_items,
@@ -57,7 +57,7 @@ int tagged_stream_to_pdu_impl::work(int noutput_items,
 
     // Send msg
     pmt::pmt_t msg = pmt::cons(d_pdu_meta, d_pdu_vector);
-    message_port_pub(PMTCONSTSTR__pdus(), msg);
+    message_port_pub(ports::pdus(), msg);
 
     return ninput_items[0];
 }

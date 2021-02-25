@@ -91,10 +91,10 @@ class qa_socket_pdu (gr_unittest.TestCase):
         tags = [tag1, tag2]
 
         src = blocks.vector_source_b(srcdata, False, 1, tags)
-        ts_to_pdu = pdu.tagged_stream_to_pdu(pdu.byte_t, "len")
+        ts_to_pdu = pdu.tagged_stream_to_pdu(pdu.types.byte_t, "len")
         pdu_send = pdu.socket_pdu("UDP_CLIENT", "localhost", "4141")
         #pdu_recv = pdu.socket_pdu("UDP_SERVER", "localhost", port)
-        pdu_to_ts = pdu.pdu_to_tagged_stream(pdu.byte_t, "len")
+        pdu_to_ts = pdu.pdu_to_tagged_stream(pdu.types.byte_t, "len")
         head = blocks.head(gr.sizeof_char, 10)
         sink = blocks.vector_sink_b(1)
 

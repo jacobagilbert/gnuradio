@@ -35,11 +35,11 @@ public:
 
     /*!
      * \brief Construct a tagged_stream_to_pdu block
-     * \param type PDU type of pdu::vector_type
+     * \param type PDU type of pdu::types::vector_type
      * \param lengthtagname The name of the tag that specifies
      *        how long the packet is.
      */
-    static sptr make(pdu::vector_type type,
+    static sptr make(pdu::types::vector_type type,
                      const std::string& lengthtagname = "packet_len");
 };
 

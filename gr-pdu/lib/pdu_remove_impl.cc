@@ -28,10 +28,9 @@ pdu_remove_impl::pdu_remove_impl(pmt::pmt_t k)
     : block("pdu_remove", io_signature::make(0, 0, 0), io_signature::make(0, 0, 0)),
       d_k(k)
 {
-    message_port_register_out(PMTCONSTSTR__pdus());
-    message_port_register_in(PMTCONSTSTR__pdus());
-    set_msg_handler(PMTCONSTSTR__pdus(),
-                    [this](pmt::pmt_t msg) { this->handle_msg(msg); });
+    message_port_register_out(ports::pdus());
+    message_port_register_in(ports::pdus());
+    set_msg_handler(ports::pdus(), [this](pmt::pmt_t msg) { this->handle_msg(msg); });
 }
 
 void pdu_remove_impl::handle_msg(pmt::pmt_t pdu)
@@ -44,7 +43,7 @@ void pdu_remove_impl::handle_msg(pmt::pmt_t pdu)
         throw std::runtime_error("pdu_remove received non PDU input");
     }
     meta = pmt::dict_delete(meta, d_k);
-    message_port_pub(PMTCONSTSTR__pdus(), pmt::cons(meta, pmt::cdr(pdu)));
+    message_port_pub(ports::pdus(), pmt::cons(meta, pmt::cdr(pdu)));
 }
 
 } /* namespace pdu */

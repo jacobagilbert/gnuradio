@@ -29,10 +29,9 @@ pdu_set_impl::pdu_set_impl(pmt::pmt_t k, pmt::pmt_t v)
       d_k(k),
       d_v(v)
 {
-    message_port_register_out(PMTCONSTSTR__pdus());
-    message_port_register_in(PMTCONSTSTR__pdus());
-    set_msg_handler(PMTCONSTSTR__pdus(),
-                    [this](pmt::pmt_t msg) { this->handle_msg(msg); });
+    message_port_register_out(ports::pdus());
+    message_port_register_in(ports::pdus());
+    set_msg_handler(ports::pdus(), [this](pmt::pmt_t msg) { this->handle_msg(msg); });
 }
 
 void pdu_set_impl::handle_msg(pmt::pmt_t pdu)
@@ -45,7 +44,7 @@ void pdu_set_impl::handle_msg(pmt::pmt_t pdu)
         throw std::runtime_error("pdu_set received non PDU input");
     }
     meta = pmt::dict_add(meta, d_k, d_v);
-    message_port_pub(PMTCONSTSTR__pdus(), pmt::cons(meta, pmt::cdr(pdu)));
+    message_port_pub(ports::pdus(), pmt::cons(meta, pmt::cdr(pdu)));
 }
 
 } /* namespace pdu */

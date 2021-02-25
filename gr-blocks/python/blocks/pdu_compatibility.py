@@ -14,10 +14,10 @@ Compatibility layer for transition to gr-pdu. Scheduled for removal in 3.11.
 
 from gnuradio import gr, pdu
 
-byte_t = pdu.byte_t
-float_t = pdu.float_t
-complex_t = pdu.complex_t
-vector_type = pdu.vector_type
+byte_t = pdu.types.byte_t
+float_t = pdu.types.float_t
+complex_t = pdu.types.complex_t
+vector_type = pdu.types.vector_type
 
 class pdu_filter(pdu.pdu_filter):
     def __init__(self, *args, **kwargs):
